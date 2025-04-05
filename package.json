@@ -1,0 +1,111 @@
+{
+  "name": "news-collector-server",
+  "version": "1.0.0",
+  "description": "News Collector server APIs using Node.js, Express, and Mongoose",
+  "main": "src/index.js",
+  "repository": "git@github.com:kishan-ghetiya/news-collector-server.git",
+  "author": "Kishan Ghetiya <kishanp.ghetiya@gmail.com>",
+  "contributors": [
+    {
+      "name": "Kishan Ghetiya",
+      "email": "kishanp.ghetiya@gmail.com"
+    },
+    {
+      "name": "Vasu Sojitra",
+      "email": "vasusojitra167@gmail.com"
+    },
+    {
+      "name": "Yash Hingrajiya",
+      "email": "yashhingrajiya2001@gmail.com"
+    },
+    {
+      "name": "Charmin Patel",
+      "email": "charmin.patel2229@gmail.com"
+    }
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "start": "cross-env NODE_ENV=development nodemon src/index.js",
+    "format": "prettier-eslint 'server/**/*.{js,json}' --write",
+    "debug": "nodemon --inspect src/app.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier --check **/*.js",
+    "prettier:fix": "prettier --write **/*.js",
+    "prepare": "husky install"
+  },
+  "keywords": [
+    "node",
+    "node.js",
+    "generator",
+    "express",
+    "rest",
+    "api",
+    "mongodb",
+    "mongoose",
+    "es6",
+    "es7",
+    "es8",
+    "es9",
+    "passport",
+    "joi",
+    "eslint",
+    "prettier"
+  ],
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "bluebird": "^3.7.2",
+    "body-parser": "^2.2.0",
+    "compression": "^1.8.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.7",
+    "express": "^4.17.1",
+    "express-mongo-sanitize": "^2.0.0",
+    "express-rate-limit": "^7.1.0",
+    "handlebars": "^4.7.8",
+    "helmet": "^8.1.0",
+    "http-status": "^2.1.0",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "lodash": "^4.17.21",
+    "moment": "^2.30.1",
+    "mongoose": "^8.13.2",
+    "mongoose-paginate-v2": "^1.9.0",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.10.0",
+    "or": "^0.2.0",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
+    "simple-encryptor": "^4.0.0",
+    "validator": "^13.15.0",
+    "winston": "^3.17.0",
+    "xss-clean": "^0.1.4"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-node": "^4.0.0",
+    "eslint-config-prettier": "^8.10.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-security": "^1.4.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.5.0",
+    "nodemon": "^3.1.9",
+    "prettier": "^2.8.8"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint:fix",
+      "pre-push": "npm run lint"
+    }
+  }
+}

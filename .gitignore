@@ -1,0 +1,23 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+public
+.pnpm-debug.log*
+
+# Dependencies
+node_modules
+
+# Environment varibales
+.env*
+!.env*.example
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Editors
+.vscode
+.DS_Store

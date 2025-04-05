@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Your Account</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Univers&display=swap');
+
+        body {
+            font-family: 'Univers', Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .content {
+            margin: 20px 0;
+            line-height: 1.6;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            font-size: 14px;
+            color: #ffffff;
+            background: linear-gradient(90deg, #DF004E, #F48937);
+            text-decoration: none;
+            border-radius: 6px;
+            margin: 8px 0px 16px 0px;
+            text-align: center;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .footer {
+            text-align: center;
+            color: #888;
+            font-size: 12px;
+            margin-top: 30px;
+            line-height: 1.4;
+        }
+
+        .pre-text {
+            margin-top: 30px;
+            font-size: 15px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        p {
+            margin: 0 0 10px 0;
+        }
+
+        .table-wrapper {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Verify Your Account</h1>
+        </div>
+
+        <div class="content">
+            <p>Dear {{username}},</p><br>
+            <p>Thank you for registering with News Collector! Please verify your account to get started.</p>
+            <p>Your verification code is <strong>{{verificationCode}}</strong>. It will expire in 10 minutes.</p>
+        </div>
+
+        <div class="table-wrapper">
+            <!-- Signoff -->
+            <div class="pre-text">
+                {{!-- {{> signoff}} --}}
+            </div>
+        </div>
+
+        <div class="footer">
+            <!-- Footer -->
+            {{!-- {{> footer}} --}}
+        </div>
+    </div>
+</body>
+
+</html>

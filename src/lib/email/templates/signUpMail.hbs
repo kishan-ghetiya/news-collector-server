@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Univers&display=swap');
+
+        body {
+            font-family: 'Univers', Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .content {
+            margin: 20px 0;
+            line-height: 1.8;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .content p {
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #ffffff;
+            background: linear-gradient(90deg, #DF004E, #F48937);
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .footer {
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+            margin-top: 30px;
+            line-height: 1.4;
+        }
+
+        .pre-text {
+            margin-top: 30px;
+            font-size: 15px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .table-wrapper {
+            margin-top: 20px;
+        }
+
+        /* Styled list points without extra space */
+        .content ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .content ul li {
+            margin-bottom: 10px;
+        }
+
+        .content ul li strong {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .content ul li span {
+            color: #333;
+        }
+
+        .footer a {
+            color: #112B50;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome to News Collector</h1>
+        </div>
+
+        <div class="content">
+            <p>Hi {{username}},</p>
+            <p>Welcome to News Collector! We're excited to have you on board as the Security Manager and look forward to
+                helping you protect your organization's data. Your enterprise account is now ready to monitor and
+                safeguard your company's digital assets.</p>
+            <p>Here’s what you can expect:</p>
+            <ul>
+                <li><strong>Company-Wide Breach Monitoring:</strong> <span>We'll notify you if any company email domains
+                        or employee data are compromised.</span></li>
+                <li><strong>Enterprise Dashboard:</strong> <span>Monitor and manage security status for all registered
+                        company email addresses.</span></li>
+                <li><strong>Proactive Security Recommendations:</strong> <span>Receive insights to enhance your
+                        company's security practices.</span>
+                </li>
+                <li><strong>Priority Enterprise Support:</strong> <span>Reach out to our dedicated enterprise team at <a
+                            href="mailto:support@newscollector.io">support@newscollector.io</a> for assistance.</span></li>
+            </ul>
+            <p>Explore our <a href="{{loginLink}}">website</a> to learn more about our features and resources. We're
+                thrilled to partner with you in securing your organization's digital assets.</p>
+        </div>
+
+        <div class="table-wrapper">
+            <!-- Signoff -->
+            <div class="pre-text">
+                {{!-- {{> signoff}} --}}
+            </div>
+        </div>
+
+        <div class="footer">
+            <!-- Footer -->
+            {{!-- {{> footer}} --}}
+        </div>
+    </div>
+</body>
+
+</html>
