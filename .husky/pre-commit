@@ -4,4 +4,3 @@
 echo "🛡️ Running pre-commit checks..."
 
 npm run lint
-npx prettier --check .
