@@ -105,11 +105,6 @@ src\
  |--index.js        # App entry point
 ```
 
-### Postman Collection
-
-<!-- https://api.postman.com/collections/14543925-a4fa37f0-730f-48d0-9e6c-0c9828ff3bb2?access_key=PMAT-01J8FAAZXC12GP0ECPT9JKKSGP -->
-
-
 ### License
 
 [MIT](LICENSE) - Kishan Ghetiya (kishanp.ghetiya@gmail.com)
