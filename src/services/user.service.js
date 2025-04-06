@@ -68,32 +68,18 @@ const updateUserById = async (userId, updateBody) => {
 };
 
 /**
- * Delete user by id
+ * Delete user by id (hard delete)
  * @param {ObjectId} userId
  * @returns {Promise<User>}
  */
+
 const deleteUserById = async (userId) => {
   const user = await getUserById(userId);
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, CONSTANT.ERROR_MESSAGE.COMMON.USER_NOT_FOUND);
   }
-  if (user.isDeleted.deleted) {
-    throw new ApiError(httpStatus.NOT_FOUND, CONSTANT.ERROR_MESSAGE.USER.USER_ALREADY_DELETED);
-  }
 
-  // Soft delete (update the user)
-  await User.findByIdAndUpdate(
-    userId,
-    {
-      $set: {
-        'isDeleted.deleted': true,
-        'isDeleted.deletedAt': new Date(),
-      },
-    },
-    { new: true } // This option returns the updated document
-  );
-
-  return user;
+  await User.findByIdAndDelete(userId);
 };
 
 module.exports = {

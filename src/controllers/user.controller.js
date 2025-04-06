@@ -43,10 +43,8 @@ const updateUser = catchAsync(async (req, res) => {
 });
 
 const deleteUser = catchAsync(async (req, res) => {
-  const user = await userService.deleteUserById(req.params.userId);
-  if (user && user.isDeleted.deleted) {
-    res.status(httpStatus.OK).json({ message: CONSTANT.ERROR_MESSAGE.USER.USER_DELETED });
-  }
+  await userService.deleteUserById(req.params.userId);
+  res.status(httpStatus.OK).json({ message: CONSTANT.ERROR_MESSAGE.USER.USER_DELETED });
 });
 
 module.exports = {
