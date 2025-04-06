@@ -72,14 +72,6 @@ const userSchema = mongoose.Schema(
       type: Date,
       default: null,
     },
-    isDeleted: {
-      deleted: {
-        type: Boolean,
-        default: false,
-        index: true,
-      },
-      deletedAt: Date,
-    },
   },
   {
     timestamps: true,

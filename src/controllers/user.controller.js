@@ -7,16 +7,12 @@ const CONSTANT = require('../lib/constant/error.constant');
 
 const getUser = catchAsync(async (req, res) => {
   const user = await userService.getUserById(req.params.userId);
-  if (!user || user.isDeleted.deleted) {
-    throw new ApiError(httpStatus.NOT_FOUND, CONSTANT.ERROR_MESSAGE.COMMON.USER_NOT_FOUND);
-  }
 
   const userProfile = {
     id: user._id,
     fullName: user.fullName,
     email: user.email,
     isEmailVerified: user.isEmailVerified,
-    isDeleted: user.isDeleted,
     createdAt: user.createdAt,
   };
 
