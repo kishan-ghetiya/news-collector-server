@@ -107,7 +107,7 @@ src\
 
 ### Postman Collection
 
-https://api.postman.com/collections/41571494-f8fcb2c8-c3ba-44a4-a3c9-c901bd0c5763?access_key=
+https://api.postman.com/collections/41571494-f8fcb2c8-c3ba-44a4-a3c9-c901bd0c5763
 
 ### License
 
