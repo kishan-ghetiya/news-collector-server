@@ -28,7 +28,6 @@ const blogSchema = mongoose.Schema(
     },
     summary: {
       type: String,
-      // required: false,
       trim: true,
     },
     submittedBy: {
@@ -38,7 +37,6 @@ const blogSchema = mongoose.Schema(
     },
     submittedUrl: {
       type: String,
-      // required: true,
       trim: true,
     },
   },
