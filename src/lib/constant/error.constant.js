@@ -49,4 +49,9 @@ module.exports = {
       NO_USERS_FOUND: 'If an account with this email exists, you will receive an email to reset your password',
     },
   },
+  SUCCESS_MESSAGE: {
+    CONTACT_US: {
+      MESSAGE_SENT: `Message received. We'll be in touch soon!`,
+    },
+  },
 };
