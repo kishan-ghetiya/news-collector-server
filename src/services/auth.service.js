@@ -105,12 +105,12 @@ const changePassword = async (userId, oldPassword, newPassword) => {
 
 /**
  * Verify email
- * @param {string} userId
+ * @param {string} email
  * @param {string} verifyCode
  * @returns {Promise}
  */
-const verifyEmail = async (userId, verifyCode) => {
-  const user = await userService.getUserById(userId);
+const verifyEmail = async (email, verifyCode) => {
+  const user = await userService.getUserByEmail(email);
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, CONSTANT.ERROR_MESSAGE.COMMON.USER_NOT_FOUND);
   }

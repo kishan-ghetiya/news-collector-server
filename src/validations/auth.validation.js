@@ -61,7 +61,7 @@ const sendVerificationEmail = {
 
 const verifyEmail = {
   query: Joi.object().keys({
-    userId: Joi.string().required(),
+    email: Joi.string().required(),
     verificationCode: Joi.string().required(),
   }),
 };
