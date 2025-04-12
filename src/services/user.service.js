@@ -2,7 +2,7 @@ const httpStatus = require('http-status');
 const { User } = require('../models');
 const ApiError = require('../utils/ApiError');
 const CONSTANT = require('../lib/constant/error.constant');
-const { default: genAvatar } = require('../utils/generateAvatar');
+const { generateAvatar } = require('../services/utils.service');
 
 /**
  * Create a user
@@ -14,8 +14,7 @@ const createUser = async (userBody) => {
     throw new ApiError(httpStatus.BAD_REQUEST, CONSTANT.ERROR_MESSAGE.USER.EMAIL_ALREADY_EXISTS);
   }
 
-  // Apply the genAvatar function to the userSchema
-  genAvatar(userBody);
+  generateAvatar(userBody);
 
   return User.create(userBody);
 };

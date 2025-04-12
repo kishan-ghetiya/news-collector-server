@@ -44,6 +44,10 @@ const userSchema = mongoose.Schema(
       },
       private: true, // used by the toJSON plugin
     },
+    avatar: {
+      type: String,
+      default: null,
+    },
     isEmailVerified: {
       type: Boolean,
       default: false,
@@ -70,18 +74,6 @@ const userSchema = mongoose.Schema(
     },
     lastRefreshDataAttemptDate: {
       type: Date,
-      default: null,
-    },
-    isDeleted: {
-      deleted: {
-        type: Boolean,
-        default: false,
-        index: true,
-      },
-      deletedAt: Date,
-    },
-    profileImage: {
-      type: String, // This will store the image URL or file path
       default: null,
     },
   },
