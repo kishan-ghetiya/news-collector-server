@@ -20,11 +20,6 @@ const blogSchema = mongoose.Schema(
       required: true,
       default: [],
     },
-    blog_hash: {
-      type: String,
-      unique: true,
-      trim: true,
-    },
     summary: {
       type: String,
       trim: true,

@@ -17,7 +17,6 @@ const createBlog = {
         return value;
       })
       .required(),
-    blog_hash: Joi.string().trim(),
     summary: Joi.string().allow(null, '').trim(),
     createdBy: Joi.string().custom(objectId),
     submittedUrl: Joi.string().uri().allow(null, '').trim(),
@@ -44,7 +43,6 @@ const updateBlog = {
           return value;
         })
         .required(),
-      blog_hash: Joi.string().trim(),
       summary: Joi.string().allow(null, '').trim(),
       createdBy: Joi.string().custom(objectId),
       submittedUrl: Joi.string().uri().allow(null, '').trim(),

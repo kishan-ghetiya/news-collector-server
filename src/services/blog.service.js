@@ -9,7 +9,7 @@ const ApiError = require('../utils/ApiError');
  * @returns {Promise<Blog>}
  */
 const createBlog = async (req, body) => {
-  const blogName = body.blog;
+  const blogName = body.title;
   if (await Blog.isExists(blogName)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Blog already exists');
   }
@@ -144,15 +144,25 @@ const getBlogById = async (blogId) => {
  * @returns {Promise<Blog>}
  */
 const updateBlog = async (blogId, obj) => {
-  const updatedBlog = await Blog.findOneAndUpdate({ _id: blogId }, obj);
-  if (!updatedBlog) {
+  const blog = await Blog.findById(blogId);
+  if (!blog) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Blog not found');
   }
-  if (obj.blog && (await Blog.isExists(obj.blog, blogId))) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Blog already exists.');
+
+  if (obj.tags && Array.isArray(obj.tags)) {
+    let newTags = obj.tags.flatMap((tag) => (typeof tag === 'string' ? tag.split(',') : []));
+
+    newTags = newTags.map((t) => t.trim()).filter(Boolean);
+
+    const existingTags = blog.tags || [];
+    const allTags = Array.from(new Set([...existingTags, ...newTags]));
+
+    obj.tags = allTags;
   }
-  Object.assign(updatedBlog, obj);
-  return updatedBlog;
+
+  Object.assign(blog, obj);
+  await blog.save();
+  return blog;
 };
 
 /**
