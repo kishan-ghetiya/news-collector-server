@@ -20,7 +20,7 @@ const createBlog = catchAsync(async (req, res) => {
   }
 
   body.tags = tagList.map((tag) => tag.trim());
-  body.submittedBy = req.user._id;
+  body.createdBy = req.user._id;
 
   const blog = await blogService.createBlog(req, body);
   res.status(httpStatus.CREATED).send({ blog });

@@ -58,7 +58,7 @@ const getBlogList = async (options) => {
     {
       $lookup: {
         from: 'users',
-        let: { userId: '$submittedBy' },
+        let: { userId: '$createdBy' },
         pipeline: [
           {
             $match: {
@@ -245,11 +245,11 @@ const getBookmarkList = async (userId, options) => {
             },
           },
         ],
-        as: 'blogs.submittedBy',
+        as: 'blogs.createdBy',
       },
     },
     {
-      $unwind: { path: '$blogs.submittedBy', preserveNullAndEmptyArrays: true },
+      $unwind: { path: '$blogs.createdBy', preserveNullAndEmptyArrays: true },
     },
     {
       $project: {

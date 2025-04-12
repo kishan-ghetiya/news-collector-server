@@ -17,9 +17,9 @@ const createBlog = {
         return value;
       })
       .required(),
+    category: Joi.string().required().custom(objectId),
     summary: Joi.string().allow(null, '').trim(),
     createdBy: Joi.string().custom(objectId),
-    submittedUrl: Joi.string().uri().allow(null, '').trim(),
   }),
 };
 
@@ -41,11 +41,10 @@ const updateBlog = {
             return value[0].split(',').map((tag) => tag.trim());
           }
           return value;
-        })
-        .required(),
+        }),
+      category: Joi.string().custom(objectId),
       summary: Joi.string().allow(null, '').trim(),
       createdBy: Joi.string().custom(objectId),
-      submittedUrl: Joi.string().uri().allow(null, '').trim(),
     })
     .min(1),
 };
