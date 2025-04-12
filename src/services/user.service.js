@@ -15,7 +15,7 @@ const createUser = async (userBody) => {
   }
 
   // Apply the genAvatar function to the userSchema
-  genAvatar(userBody);  // Only generate avatar if email is provided
+  genAvatar(userBody);
 
   return User.create(userBody);
 };
