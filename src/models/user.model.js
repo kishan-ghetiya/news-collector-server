@@ -72,6 +72,18 @@ const userSchema = mongoose.Schema(
       type: Date,
       default: null,
     },
+    isDeleted: {
+      deleted: {
+        type: Boolean,
+        default: false,
+        index: true,
+      },
+      deletedAt: Date,
+    },
+    profileImage: {
+      type: String, // This will store the image URL or file path
+      default: null,
+    },
   },
   {
     timestamps: true,
