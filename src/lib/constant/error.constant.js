@@ -53,5 +53,8 @@ module.exports = {
     CONTACT_US: {
       MESSAGE_SENT: `Message received. We'll be in touch soon!`,
     },
+    SUBSCRIBE: {
+      SUBSCRIBED: 'Successfully subscribed to the newsletter',
+    },
   },
 };
