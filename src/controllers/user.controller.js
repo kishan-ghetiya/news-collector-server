@@ -12,6 +12,7 @@ const getUser = catchAsync(async (req, res) => {
     id: user._id,
     fullName: user.fullName,
     email: user.email,
+    avatar: user.avatar,
     isEmailVerified: user.isEmailVerified,
     createdAt: user.createdAt,
   };
