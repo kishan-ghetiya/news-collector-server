@@ -31,7 +31,7 @@ const defaultRoutes = [
     route: contactusRoute,
   },
   {
-    path: '/subscribe',
+    path: '/email',
     route: subscribeRoute,
   },
 ];

@@ -8,4 +8,15 @@ const subscribeEmail = async (email) => {
   return await Subscribe.create({ email });
 };
 
-module.exports = { subscribeEmail };
+const unsubscribeEmail = async (email) => {
+  const existing = await Subscribe.findOne({ email });
+  if (!existing) {
+    throw new Error('Email not found');
+  }
+  await Subscribe.deleteOne({ email });
+};
+
+module.exports = {
+  subscribeEmail,
+  unsubscribeEmail,
+};

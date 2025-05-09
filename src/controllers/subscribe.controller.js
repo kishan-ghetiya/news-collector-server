@@ -11,6 +11,15 @@ const subscribe = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).json({ success: CONSTANT.SUCCESS_MESSAGE.SUBSCRIBE.SUBSCRIBED });
 });
 
+const unsubscribe = catchAsync(async (req, res) => {
+  const { email } = req.body;
+
+  await subscribeService.unsubscribeEmail(email);
+
+  res.status(httpStatus.OK).json({ success: CONSTANT.SUCCESS_MESSAGE.SUBSCRIBE.UNSUBSCRIBED });
+});
+
 module.exports = {
   subscribe,
+  unsubscribe,
 };

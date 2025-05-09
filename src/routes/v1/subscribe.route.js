@@ -5,6 +5,7 @@ const subscribeController = require('../../controllers/subscribe.controller');
 
 const router = express.Router();
 
-router.post('/email', validate(subscribeValidation.subscribeEmail), subscribeController.subscribe);
+router.post('/subscribe', validate(subscribeValidation.subscribeEmail), subscribeController.subscribe);
+router.post('/unsubscribe', validate(subscribeValidation.subscribeEmail), subscribeController.unsubscribe);
 
 module.exports = router;

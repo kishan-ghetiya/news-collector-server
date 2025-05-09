@@ -55,6 +55,7 @@ module.exports = {
     },
     SUBSCRIBE: {
       SUBSCRIBED: 'Successfully subscribed to the newsletter',
+      UNSUBSCRIBED: 'Successfully unsubscribed from the newsletter',
     },
   },
 };
