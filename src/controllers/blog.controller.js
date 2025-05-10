@@ -6,13 +6,21 @@ const { blogService } = require('../services');
 
 const createBlog = catchAsync(async (req, res) => {
   const { body } = req;
-  const tagList = body.tags.split(',');
-  body.tags = [];
-  tagList.forEach((tag) => {
-    body.tags.push(tag.trim());
-  });
 
-  body.submittedBy = req.user._id;
+  let tagList = [];
+
+  if (Array.isArray(body.tags)) {
+    if (body.tags.length === 1 && typeof body.tags[0] === 'string' && body.tags[0].includes(',')) {
+      tagList = body.tags[0].split(',');
+    } else {
+      tagList = body.tags;
+    }
+  } else if (typeof body.tags === 'string') {
+    tagList = body.tags.split(',');
+  }
+
+  body.tags = tagList.map((tag) => tag.trim());
+  body.createdBy = req.user._id;
 
   const blog = await blogService.createBlog(req, body);
   res.status(httpStatus.CREATED).send({ blog });
@@ -34,7 +42,9 @@ const getBlog = catchAsync(async (req, res) => {
 const getBlogs = catchAsync(async (req, res) => {
   const options = pick(req.query, ['limit', 'page', 'search']);
   const blogs = await blogService.getBlogList(options);
-  return res.status(httpStatus.OK).send({ results: blogs });
+
+  const [result] = blogs;
+  return res.status(httpStatus.OK).send(result || { results: [], totalResults: 0, page: 1, limit: 10, totalPages: 0 });
 });
 
 const deleteBlog = catchAsync(async (req, res) => {

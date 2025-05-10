@@ -44,6 +44,32 @@ const userSchema = mongoose.Schema(
       },
       private: true, // used by the toJSON plugin
     },
+    avatar: {
+      type: String,
+      default: null,
+    },
+    bio: {
+      type: String,
+      default: null,
+    },
+    socialLinks: {
+      twitter: {
+        type: String,
+        default: null,
+      },
+      linkedin: {
+        type: String,
+        default: null,
+      },
+      github: {
+        type: String,
+        default: null,
+      },
+      medium: {
+        type: String,
+        default: null,
+      },
+    },
     isEmailVerified: {
       type: Boolean,
       default: false,
@@ -94,23 +120,6 @@ userSchema.methods.checkAndUpdateOtpAttempts = async function () {
 
   if (this.otpAttempts > config.rate_limit.otp) {
     throw new ApiError(httpStatus.FORBIDDEN, CONSTANT.ERROR_MESSAGE.COMMON.RATE_LIMIT_EXCEEDED);
-  }
-
-  await this.save();
-};
-
-// check and update refresh data attempts
-userSchema.methods.checkAndUpdateRefreshDataAttempts = async function () {
-  const today = new Date();
-  if (!this.lastRefreshDataAttemptDate || this.lastRefreshDataAttemptDate.toDateString() !== today.toDateString()) {
-    this.refreshDataAttempts = 1;
-    this.lastRefreshDataAttemptDate = today;
-  } else {
-    this.refreshDataAttempts += 1;
-  }
-
-  if (this.refreshDataAttempts > config.rate_limit.refresh_data) {
-    throw new ApiError(httpStatus.FORBIDDEN, CONSTANT.ERROR_MESSAGE.COMMON.REFERESH_RATE_LIMIT_EXCEEDED);
   }
 
   await this.save();

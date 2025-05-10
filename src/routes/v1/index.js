@@ -2,7 +2,9 @@ const express = require('express');
 const authRoute = require('./auth.route');
 const userRoute = require('./user.route');
 const blogRoute = require('./blog.route');
+const categoryRoute = require('./category.route');
 const contactusRoute = require('./contactus.route');
+const subscribeRoute = require('./subscribe.route');
 const config = require('../../config/config');
 
 const router = express.Router();
@@ -21,8 +23,16 @@ const defaultRoutes = [
     route: blogRoute,
   },
   {
+    path: '/category',
+    route: categoryRoute,
+  },
+  {
     path: '/contact-us',
     route: contactusRoute,
+  },
+  {
+    path: '/email',
+    route: subscribeRoute,
   },
 ];
 

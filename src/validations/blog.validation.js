@@ -9,15 +9,17 @@ const createBlog = {
       .try(Joi.array().items(Joi.string()), Joi.string())
       .custom((value, helpers) => {
         if (typeof value === 'string') {
-          return [value]; // Convert single string to array
+          return value.split(',').map((tag) => tag.trim());
+        }
+        if (Array.isArray(value) && value.length === 1 && typeof value[0] === 'string' && value[0].includes(',')) {
+          return value[0].split(',').map((tag) => tag.trim());
         }
         return value;
       })
       .required(),
-    blog_hash: Joi.string().trim(),
+    category: Joi.string().required().custom(objectId),
     summary: Joi.string().allow(null, '').trim(),
     createdBy: Joi.string().custom(objectId),
-    submittedUrl: Joi.string().uri().allow(null, '').trim(),
   }),
 };
 
@@ -29,19 +31,20 @@ const updateBlog = {
     .keys({
       title: Joi.string().trim(),
       link: Joi.string().uri().trim(),
-      tags: Joi.array().items(Joi.string()),
       tags: Joi.alternatives()
         .try(Joi.array().items(Joi.string()), Joi.string())
         .custom((value, helpers) => {
           if (typeof value === 'string') {
-            return [value]; // Convert single string to array
+            return value.split(',').map((tag) => tag.trim());
+          }
+          if (Array.isArray(value) && value.length === 1 && typeof value[0] === 'string' && value[0].includes(',')) {
+            return value[0].split(',').map((tag) => tag.trim());
           }
           return value;
         }),
-      blog_hash: Joi.string().trim(),
+      category: Joi.string().custom(objectId),
       summary: Joi.string().allow(null, '').trim(),
       createdBy: Joi.string().custom(objectId),
-      submittedUrl: Joi.string().uri().allow(null, '').trim(),
     })
     .min(1),
 };

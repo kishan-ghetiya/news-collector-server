@@ -35,7 +35,7 @@
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check **/*.js",
     "prettier:fix": "prettier --write **/*.js",
-    "prepare": "husky install"
+    "prepare": "if [ \"$NODE_ENV\" != \"production\" ]; then husky install; fi"
   },
   "keywords": [
     "node",
@@ -81,6 +81,7 @@
     "or": "^0.2.0",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
+    "random-avatar-generator": "^2.0.0",
     "simple-encryptor": "^4.0.0",
     "validator": "^13.15.0",
     "winston": "^3.17.0",

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
 const { toJSON, paginate } = require('./plugins');
 
 const blogSchema = mongoose.Schema(
@@ -21,22 +20,18 @@ const blogSchema = mongoose.Schema(
       required: true,
       default: [],
     },
-    blog_hash: {
-      type: String,
-      unique: true,
-      trim: true,
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Category',
+      required: true,
     },
     summary: {
       type: String,
       trim: true,
     },
-    submittedBy: {
+    createdBy: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'User',
-      trim: true,
-    },
-    submittedUrl: {
-      type: String,
       trim: true,
     },
   },

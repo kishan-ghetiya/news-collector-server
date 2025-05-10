@@ -1,6 +1,7 @@
 const httpStatus = require('http-status');
 const _ = require('lodash');
 const { Blog, BlogBookmark } = require('../models');
+const { calculateReadingTime } = require('../services/utils.service');
 const ApiError = require('../utils/ApiError');
 
 /**
@@ -9,7 +10,7 @@ const ApiError = require('../utils/ApiError');
  * @returns {Promise<Blog>}
  */
 const createBlog = async (req, body) => {
-  const blogName = body.blog;
+  const blogName = body.title;
   if (await Blog.isExists(blogName)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Blog already exists');
   }
@@ -58,7 +59,7 @@ const getBlogList = async (options) => {
     {
       $lookup: {
         from: 'users',
-        let: { userId: '$submittedBy' },
+        let: { userId: '$createdBy' },
         pipeline: [
           {
             $match: {
@@ -70,8 +71,10 @@ const getBlogList = async (options) => {
           {
             $project: {
               _id: 1,
-              name: 1,
+              fullName: 1,
               email: 1,
+              avatar: 1,
+              socialLinks: 1,
             },
           },
         ],
@@ -123,8 +126,14 @@ const getBlogList = async (options) => {
     }
   );
 
-  const blogs = await Blog.aggregate(aggregateQuery);
-  return blogs;
+  const [result] = await Blog.aggregate(aggregateQuery);
+
+  result.results = result.results.map((blog) => ({
+    ...blog,
+    readingTime: calculateReadingTime(blog.summary),
+  }));
+
+  return result;
 };
 
 /**
@@ -133,8 +142,38 @@ const getBlogList = async (options) => {
  * @returns {Promise<Blog>}
  */
 const getBlogById = async (blogId) => {
-  const blog = await Blog.findOne({ _id: blogId });
-  return blog;
+  const blog = await Blog.findOne({ _id: blogId }).populate('createdBy');
+  if (!blog) return null;
+
+  const wordsPerMinute = 200;
+  const text = blog.summary || '';
+  const wordCount = text.trim().split(/\s+/).length;
+  const readingTimeMinutes = Math.ceil(wordCount / wordsPerMinute);
+
+  const createdBy = blog.createdBy
+    ? {
+        socialLinks: blog.createdBy.socialLinks,
+        fullName: blog.createdBy.fullName,
+        email: blog.createdBy.email,
+        avatar: blog.createdBy.avatar,
+      }
+    : null;
+
+  const response = {
+    _id: blog._id,
+    title: blog.title,
+    link: blog.link,
+    tags: blog.tags,
+    category: blog.category,
+    summary: blog.summary || '',
+    createdBy,
+    createdAt: blog.createdAt,
+    updatedAt: blog.updatedAt,
+    readingTime: `${readingTimeMinutes} min read`,
+    __v: blog.__v,
+  };
+
+  return response;
 };
 
 /**
@@ -144,15 +183,25 @@ const getBlogById = async (blogId) => {
  * @returns {Promise<Blog>}
  */
 const updateBlog = async (blogId, obj) => {
-  const updatedBlog = await Blog.findOneAndUpdate({ _id: blogId }, obj);
-  if (!updatedBlog) {
+  const blog = await Blog.findById(blogId);
+  if (!blog) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Blog not found');
   }
-  if (obj.blog && (await Blog.isExists(obj.blog, blogId))) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Blog already exists.');
+
+  if (obj.tags && Array.isArray(obj.tags)) {
+    let newTags = obj.tags.flatMap((tag) => (typeof tag === 'string' ? tag.split(',') : []));
+
+    newTags = newTags.map((t) => t.trim()).filter(Boolean);
+
+    const existingTags = blog.tags || [];
+    const allTags = Array.from(new Set([...existingTags, ...newTags]));
+
+    obj.tags = allTags;
   }
-  Object.assign(updatedBlog, obj);
-  return updatedBlog;
+
+  Object.assign(blog, obj);
+  await blog.save();
+  return blog;
 };
 
 /**
@@ -230,16 +279,18 @@ const getBookmarkList = async (userId, options) => {
           {
             $project: {
               _id: 1,
-              name: 1,
+              fullName: 1,
               email: 1,
+              avatar: 1,
+              socialLinks: 1,
             },
           },
         ],
-        as: 'blogs.submittedBy',
+        as: 'blogs.createdBy',
       },
     },
     {
-      $unwind: { path: '$blogs.submittedBy', preserveNullAndEmptyArrays: true },
+      $unwind: { path: '$blogs.createdBy', preserveNullAndEmptyArrays: true },
     },
     {
       $project: {
@@ -298,6 +349,11 @@ const getBookmarkList = async (userId, options) => {
   const blogs = _.reduce(
     bookmarkedBlogs[0].results,
     (blog, val) => {
+      const content = val.blogs?.summary || '';
+      const words = content.trim().split(/\s+/).length;
+      const minutes = Math.ceil(words / 200);
+      val.blogs.readingTime = `${minutes} min read`;
+
       blog.push(val.blogs);
       return blog;
     },

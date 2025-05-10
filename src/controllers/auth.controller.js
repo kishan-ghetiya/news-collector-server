@@ -38,6 +38,7 @@ const register = catchAsync(async (req, res) => {
       });
     }
     return res.status(httpStatus.BAD_REQUEST).send({
+      isRegistered: false,
       message: CONSTANT.ERROR_MESSAGE.AUTH.EMAIL_ALREADY_REGISTERED,
     });
   }
@@ -133,9 +134,9 @@ const sendVerificationEmail = catchAsync(async (req, res) => {
 });
 
 const verifyEmail = catchAsync(async (req, res) => {
-  const { userId, verificationCode } = req.query;
+  const { email, verificationCode } = req.query;
 
-  let user = await authService.verifyEmail(userId, verificationCode);
+  let user = await authService.verifyEmail(email, verificationCode);
   if (!user) {
     res.status(404).send({ message: CONSTANT.ERROR_MESSAGE.COMMON.USER_NOT_FOUND });
   }
